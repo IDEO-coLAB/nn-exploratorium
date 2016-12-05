@@ -4,7 +4,7 @@ const nomad = new Nomad()
 const fetch = require('node-fetch')
 
 let instance = null
-const frequency = 60 * 60 * 1000
+const frequency = 5 * 60 * 1000
 
 // parse into url object 
 let base = 'http://erddap.exploratorium.edu:8080/erddap/tabledap/exploreusgsdata.json?time,temperature,specific_conductance,salinity,turbidity,dissolved_o2,station_id,latitude,longitude&time>='
@@ -23,7 +23,7 @@ function transform(json) {
   transformed['columnNames'] = json.table.columnNames
   transformed['columnTypes'] = json.table.columnTypes
   transformed['columnUnits'] = json.table.columnUnits
-  transformed['data'] = json.table.rows[0]
+  transformed['data'] = json.table.rows[(json.table.rows.length-1)]
   return transformed
 }
 
